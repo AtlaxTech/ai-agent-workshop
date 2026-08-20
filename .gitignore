@@ -24,6 +24,7 @@ models/
 *.sqlite3
 logs/
 tmp/
+*.tmp
 
 # Editors and operating systems
 .DS_Store

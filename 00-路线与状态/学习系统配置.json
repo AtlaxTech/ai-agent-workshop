@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "scan_roots": [
+    "01-输入区",
+    "02-每日笔记",
+    "03-整理区",
+    "04-练习区",
+    "05-项目区",
+    "06-复习区",
+    "07-总结与评估"
+  ],
+  "scan_extensions": [".md", ".txt", ".py", ".ipynb", ".json", ".yaml", ".yml"],
+  "exclude_globs": [
+    "06-复习区/复习索引.json",
+    "06-复习区/今日复习/**",
+    "06-复习区/复习记录/**",
+    "06-复习区/知识卡片/**",
+    "06-复习区/已掌握/**"
+  ],
+  "intervals_days": [1, 3, 7, 14, 30],
+  "daily_review_limit_minutes": 25,
+  "estimated_minutes_per_card": 2,
+  "priority_levels": {
+    "1": "补充",
+    "2": "核心",
+    "3": "求职/项目关键"
+  },
+  "archive_min_reviews": 5,
+  "archive_min_success_streak": 3
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "last_checkpoint_at": "2026-08-20T16:27:02+08:00",
+  "processed_files": {
+    "01-输入区/README.md": "b6748e5a915f767a2d1e9d2231919edc9a3d267dfe5b70c5d835e4008f5c506f",
+    "02-每日笔记/Day-1/学习记录.md": "7bc2bf636504ca3364cedeb9916a37bcf028e3acb8067cc971641ebf47526010",
+    "02-每日笔记/Day-2/学习记录.md": "55cb3384f19f23c8046e18fc9882fd6001fd86b623882488a2b83b15fa2c1116",
+    "02-每日笔记/Day-3/学习记录.md": "ecff3bb541d70087972ace378ae1235223a39e2c7edb63f3eb299e2c3211f05b",
+    "02-每日笔记/Day-4/学习记录.md": "115fca5a8c72d774b98b6eeddd613f78fb7a173c822f780bc3bba5b9fd73811d",
+    "02-每日笔记/Day-5/学习记录.md": "255090f0786bdfddb64784fade3ac4f702ab11d5fd5b91ae3d6bcf1c4afbb01c",
+    "02-每日笔记/Day-6/学习记录.md": "7c8064f87346b079bf46c0cfef97d0328132e63ce99c6f34b4d2373f66220af0",
+    "02-每日笔记/Day-7/学习记录.md": "128154ab62fac606dc3828af78f4567157cc24c44ccff225de1ea3a6decefc17",
+    "02-每日笔记/README.md": "b1b04e65de1ec765fa275b1a44f34d9894d0db3f56de0aea801f33697e03563d",
+    "03-整理区/README.md": "c264fa23c52f0bdfe9561a774fed716c53c07adf9ae11925b099560c559f6593",
+    "03-整理区/知识索引.md": "adb4faf6a27a490a18467465c68535578a5211d3d12fef121a17faa241057c5d",
+    "04-练习区/README.md": "1fa6f611465f2dc99cfbf70d2d802d2c25a32b4cc4fc5750e0f438000ab562db",
+    "05-项目区/README.md": "ca13681af590f20ddd444030a8aa8ad5288caa49d28310f3f037a22372d60db6",
+    "06-复习区/README.md": "04175fe85e151b554009589f0e58ef881c5cf88d8b4b2910028fd7783b06f007",
+    "07-总结与评估/README.md": "cbdd6a1bf97ff07a7b0bde97839ab9db649774b5f2a1b4ca36c976c12afc315b",
+    "07-总结与评估/累积口述/README.md": "0b9ed97ed59a075e9273dc5f4bdac05b779041d8d2627520a6c5999debddd025"
+  }
+}
