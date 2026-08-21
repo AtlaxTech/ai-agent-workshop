@@ -1,0 +1,220 @@
+# Python 介绍与安装以及基础操作
+## Python 安装
+1. 下载 Python 安装包：[Python 官方下载](https://www.python.org/downloads/)
+2. 安装 Python 安装包
+3. 验证 Python 安装
+    - 打开终端交互区
+    - 输入 `python3 --version` 查看 Python 版本
+        
+    ```
+    ➜ python3 --version                          
+    Python 3.13.7
+    ```
+---
+## python 环境文件
+python 虚拟环境：通过虚拟的运行环境，保证每一个Python项目都在一个相对独立的隔离的运行环境中运行，项目之间互不影响
+- .venv：虚拟环境文件，用于隔离 Python 环境，保存项目的环境信息
+- conda：conda 环境文件，用于隔离 Python 环境
+
+区别：
+- .venv 是 Python 自带的虚拟环境工具，而 conda 是一个基于 Python 的环境管理工具
+- .venv 是 Python 3.3 以上版本的默认虚拟环境工具，而 conda 是 Python 2.7 以上版本的默认环境管理工具
+---
+## Python 核心语法
+### 数据存储与运算
+#### 字面量与变量
+- 字面量决定了数据在代码中是怎么写
+- 变量决定了数据在代码中怎么存
+
+一、字面量：程序中直接书写的固定值（数据）
+字面量的种类（基础数据类型）：
+- 整数（int）
+- 浮点数（float）
+- 字符串（str）
+    1. 字符串定义方式：
+        1. 单引号：`'hello'`
+        2. 双引号：`"hello"`
+        3. 三引号（多行字符串）：
+            ```python
+            s3 = """
+            这是一个多行字符串
+            可以进行跨行/换行操作
+            """
+            ```
+    2. 字符：文本世界的基本单位。
+    3. 字符串拼接：使用 `+` 运算符将多个字符串连接起来。
+        - 注意：
+            1. 字符串频繁拼接会破坏字符串的完整性
+            2. 可以使用类型转换的方式
+            3. [[字符串的格式化]]
+    4. 常见的转义字符：
+        - `\n`：换行
+        - `\t`：制表符
+        - `\\`：反斜杠
+        - `'`：单引号
+        - `"`：双引号
+    5. 字符串的使用原则：
+        - 单引号和双引号是等效的，项目中保持一种写法即可
+        - 三引号只适用于多行字符串场景
+- 布尔值（bool）：本质就是数字类型，在涉及到数学运算时，会自动将True转换为1，False转换为0。布尔类型字面量首字母必须大写。
+- 空值（NoneType）
+- 数据容器：存储多项数据的容器，如列表、元组、集合、字典等
+
+```python
+# 整数（int）
+age = 25
+# 浮点数（float）
+height = 1.75
+# 字符串（str）
+message = "This is a String!"
+# 布尔值（bool）
+is_student = True
+
+print(message)
+print(age)
+print(height)
+print(is_student)
+# 查看变量的类型
+print(type(age), type(height), type(message), type(is_student))
+```
+
+二、变量：程序中用来存储单个数据的容器，通常吧经常发生变化的数据存储在变量中
+python 是动态类型语言，在程序运行时才进行类型检查，变量的类型可以在程序运行过程中改变，一个变量可以接收不同类型的数据。
+
+三、标识符：在代码中为变量、函数、类等元素起的名字
+命名规则：
+1. 只能包含字母、数字、下划线
+2. 不能以数字开头
+3. 不能使用关键字
+4. 严格区分大小写
+
+命名规范（coding style）：
+1. 见名知意
+2. 多个部分使用下划线链接
+3. 英文字母全部小写
+注：PEP8 是 Python 官方推荐的代码规范规范，建议在编写 Python 代码时遵循 PEP8 规范。链接：[PEP8 规范](https://www.python.org/dev/peps/pep-0008/)。
+
+
+#### 输入与输出
+- input 语句（函数）：获取键盘输入的数据，具体的用法为：`s = input(提示信息)`
+- print 语句（函数）：输出数据到控制台，具体的用法为：`print(要输出的数据)`
+```python
+# input(...)
+name = input("Please enter your name: ")
+print(f"Hello, {name}!")
+
+age = input("Please enter you age: ")
+print(f"your age is {age}")
+```
+小知识补充：
+1. getpass.getpass()：也是读键盘，但在真实终端里输入时不回显（连 * 都不显示），程序仍然把值存进变量。它的目的是防人肉窥屏（shoulder surfing），不是加密。
+    - getpass 只是"视觉脱敏"，不是真的安全。 它读进来的密码仍然以明文字符串存在内存里，程序员照样能拿到、打印、存文件或写日志。真正的"不泄露"要靠：不打印/不写日志/不硬编码/用完清掉内存等，那是另外的工程层防护，getpass 一句话给不了。
+    - 在 IDE 内嵌控制台（如 PyCharm 的 Python Console）里 getpass 经常不生效，会退化成普通输入或弹警告。要看到真正隐藏效果，请在系统终端（Terminal）里用 python3 跑这个文件。
+2. pwinput.pwinput()：是 pwinput 库的一个函数，用于读取密码输入。它在真实终端里回显星号，同时把输入的密码存储在内存中，不直接打印到屏幕。
+
+#### 运算符
+1. 算数运算符：算数运算符的优先级：幂指数 > 乘、除、取模、整除 > 加、减![alt text](note-images/image.png)
+2. 赋值运算符：![alt text](<note-images/image copy.png>)
+3. 比较运算符：用于比较两个值之间的关系。会计算运算符两边的表达式，然后返回一个布尔值作为结果![alt text](<note-images/image copy 2.png>)
+4. 逻辑运算符：用于连接多个条件（布尔）表达式（其值为 True 或 False ），并返回一个布尔结果的运算符。![alt text](<note-images/image copy 3.png>)
+
+### 数据逻辑处理
+#### 流程控制语句
+1. [[条件判断]]
+2. 模式匹配
+3. 循环
+
+### 数据存储容器
+### 函数
+### 面向对象基础
+
+
+
+
+
+### 数据结构
+#### 列表（list）
+
+```python
+# 定义一个列表变量
+numbers = [1, 2, 3, 4, 5]
+fruits = ["apple", "banana", "orange"]
+# 输出：[1, 2, 3, 4, 5]
+print(numbers)
+# 输出：['apple', 'banana', 'orange']
+print(fruits)
+
+# 查看列表的类型
+# 输出：<class 'list'>
+print(type(numbers))
+```
+注意：
+1. 列表中的元素是可以修改的
+```python
+# 修改列表中的元素
+fruits[0] = '李子'
+# 输出：['李子', 'banana', 'orange']
+print(fruits)
+```
+2. 元素可以添加到列表中
+```python
+# 添加元素到列表中
+fruits.append('peach')
+# 输出：['李子', 'banana', 'orange', 'peach']
+print(fruits)
+```
+#### 元组（tuple）
+- 元组是一种有序的集合
+- 元组中的元素**不能被修改**
+- 元组的定义和列表类似，只是用括号 `()` 包围
+- 元组的元素可以是任意数据类型
+- 元组和列表的区别：
+    - 元组中的元素不能被修改; 列表中的元素可以被修改.
+    - 元组的定义和列表类似，但是用括号 `()` 包围
+    - 元组和列表的元素都可以是任意数据类型
+- 元组和列表的应用场景：
+    - 元组适用于数据不变的情况场景，如坐标、日期等
+    - 列表适用于数据可以改变的情况场景，如学生列表、商品列表等
+
+```python
+# 定义一个元组变量
+fruits_tuple = ('apple', 'banana', 'orange')
+# 输出：('apple', 'banana', 'orange')
+print(fruits_tuple)
+# 输出：<class 'tuple'>
+print(type(fruits_tuple))
+# 元组中的元素不能被修改
+# 输出：'tuple' object does not support item assignment
+# fruits_tuple[0] = '李子'
+print(fruits_tuple)
+```
+
+## Python 的基础操作
+### for 循环
+```python
+    # 遍历列表/元组中的每个元素
+    for f in fruits:
+        print(f)
+
+    # 遍历数字序列
+    # 常见搭配可以使用 range() 函数
+    # range从 0 开始计数
+    for i in range(5):
+        print(i)
+
+    # 遍历数字序列+复杂操作
+    # 例如：计算 0 到 4 的平方
+    for i in range(5):
+        print(i**2)
+```
+### while 循环
+```python
+    # while 循环
+    # 例如：打印 0 到 4 的数字
+    i = 0
+    while i < 5:
+        print(i)
+        i += 1
+```
+
+
