@@ -304,6 +304,22 @@ s2 = set()
 
 #### 字典 dict
 
+定义：dict中存储的是键值对（key:value），可以根据key找对应的value（类似于Java中的Map） 字典中的value可以是任何类型的数据，但是key不能为可变类型（e.g.
+不能是list、set、dict）
+
+```python
+# 定义字典
+dictName = {key1: value1, key2: value2, key3: value3...}
+
+# 定义空字典
+dictName = {}
+dictName = dict()
+
+# 根据key获取value
+value = dictName[key]
+```
+
+特点：键值对 (key:value)存储、key不能重复、可修改 常用操作：![img_3.png](note-images/img_3.png)
 ### 函数
 
 ### 面向对象基础
