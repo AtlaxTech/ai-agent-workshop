@@ -155,6 +155,8 @@ while i < 5:
 
 定义：一种可以容纳多分数据的数据类型（容器），容纳的每一份数据称之为1个元素，每一个元素都可以是任意类型的数据。
 
+![img_4.png](note-images/img_4.png)
+
 #### 列表 list
 
 1. 特点：
@@ -320,6 +322,7 @@ value = dictName[key]
 ```
 
 特点：键值对 (key:value)存储、key不能重复、可修改 常用操作：![img_3.png](note-images/img_3.png)
+
 ### 函数
 
 ### 面向对象基础
