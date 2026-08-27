@@ -31,7 +31,7 @@
 ### 2026-08-22 11:13 — 字符串不能用 `+` 直接拼接整数或浮点数
 
 - **关联代码**：[
-  `../../01-输入区/Day1/list-practice/list_practice1.py`](../../01-输入区/Day1/list-practice/list_practice1.py)
+  `../2026-08-27_14-51-49/list-practice/list_practice1.py`](../2026-08-27_14-51-49/list-practice/list_practice1.py)
 - **现象**：使用以下语句输出统计结果：
 
   ```python
@@ -75,7 +75,7 @@
 ### 2026-08-21 — PyCharm Run 执行 `pwinput` 报 `Inappropriate ioctl for device`
 
 - **日期时间**：2026-08-21 10:54:29 CST
-- **问题原文**：请帮我解释一下这是为什么？怎么修复？附件为 `01-输入区/Day1/if-practice.py` 和 PyCharm 报错截图；核心错误是 `termios.error: (25, 'Inappropriate ioctl for device')`。
+- **问题原文**：请帮我解释一下这是为什么？怎么修复？附件为 `../../01-输入区/Python基础/if-practice.py` 和 PyCharm 报错截图；核心错误是 `termios.error: (25, 'Inappropriate ioctl for device')`。
 - **回答正文**：
   1. **结论**：`pwinput` 的代码写法是正确的，账号和密码常量也已经正确写成字符串。报错不是登录判断造成的，也不是 `pwinput` 没装好，而是当前 PyCharm Run 输出控制台没有提供 `pwinput` 所需的终端设备能力。
   2. **直觉解释**：普通 `input()` 是“输完一整行再交给程序”；`pwinput` 为了做到“每按一个键立刻显示一个 `*`”，必须直接控制终端的按键读取和回显开关。PyCharm 当前这个 Run 窗口虽然能启动 Python、显示文字和接收部分输入，但它的标准输入不是可由 `termios` 控制的 TTY。`pwinput` 去操作终端开关时，就收到“这个对象不支持该设备操作”的错误。
@@ -389,7 +389,7 @@
 
 ## Day 0.5 前置问题与 Agent 回答（保留原始记录）
 
-> 以下问答发生在正式 Day 1 之前，归入 [Day 0.5 学习记录](../Day-0.5/学习记录.md)，不作为 Day 1 已完成证据。
+> 以下问答发生在正式 Day 1 之前，归入 [Day 0.5 学习记录](Day-0.5-学习记录.md)，不作为 Day 1 已完成证据。
 
 ### 2026-08-20 — 为什么 `python3` 能跑，Trae Run Code 报 `command not found`
 
@@ -433,6 +433,7 @@
   更新后的计划：[Day 1 + Day 2 转岗导向联合计划](/Users/qilong.lu/WorkDir/外置赛博大脑/30-学习与成长/ai-agent-workshop/02-每日笔记/Day-2/当天计划.md)。本轮纠偏和完整回答也已写入 [Day 1 学习记录](/Users/qilong.lu/WorkDir/外置赛博大脑/30-学习与成长/ai-agent-workshop/02-每日笔记/Day-1/学习记录.md)。
 - **关联主题**：学习路线 / Applied AI Engineer 转岗 / 课程与项目优先级
 - **状态**：已确认并应用到今日计划；后续每日计划继续遵循
+> 路径备注（2026-08-27 结构迁移）：回答中链接的「Day 1 + Day 2 转岗导向联合计划」文件已随旧 Day 结构废弃；本记录现归档于本批次目录。
 
 ## 今日验收
 

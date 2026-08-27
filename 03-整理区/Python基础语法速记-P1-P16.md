@@ -15,7 +15,7 @@
 
 ## 最小验证
 
-实际脚本：[pre-course_prac.py](../01-输入区/Day1/pre-course_prac.py)
+实际脚本：[pre-course_prac.py](../02-每日笔记/Python基础/2026-08-27_14-51-49/pre-course_prac.py)
 
 ```python
 age = 25
@@ -40,12 +40,12 @@ print(type(age), type(height), type(message), type(is_student))
 
 ## 边界
 
-- 课程只确认观看到 P16。
+- 本页只对应 2026-08-20 的 P1–P16 运行证据；课程后续已推进至 P88，见[课程跟踪](../00-路线与状态/Python+AI课程跟踪.md)。
 - 原始笔记已经写到 list、tuple 和循环，但这些不自动代表对应课程章节已完成。
 - 今天未验证函数、异常、模块、类型提示或 Python AI 调用。
 
 ## 来源
 
-- [Day 0.5 学习记录](../02-每日笔记/Day-0.5/学习记录.md)
-- [原始课程笔记](../01-输入区/Day1/pre-course_python-intro.md)
-- [基础语法练习脚本](../01-输入区/Day1/pre-course_prac.py)
+- [Day 0.5 学习记录（历史证据）](../02-每日笔记/Python基础/2026-08-27_15-55-36/Day-0.5-学习记录.md)
+- [原始课程笔记](../02-每日笔记/Python基础/2026-08-27_14-51-49/pre-course_python-intro.md)
+- [基础语法练习脚本](../02-每日笔记/Python基础/2026-08-27_14-51-49/pre-course_prac.py)

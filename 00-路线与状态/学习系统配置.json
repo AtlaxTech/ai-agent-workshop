@@ -11,6 +11,9 @@
   ],
   "scan_extensions": [".md", ".txt", ".py", ".ipynb", ".json", ".yaml", ".yml"],
   "exclude_globs": [
+    "**/.venv/**",
+    "**/venv/**",
+    "**/__pycache__/**",
     "06-复习区/复习索引.json",
     "06-复习区/今日复习/**",
     "06-复习区/复习记录/**",
