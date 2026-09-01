@@ -1,5 +1,26 @@
 import streamlit as st
 
+# 设置页面配置项
+st.set_page_config(
+    page_title="Ex-stream-ly Cool App",  # 标签页标题
+    page_icon="🧊",  # 标签页图标
+    # 控制整个网页布局
+    # wide 表示使用整个网页的宽度
+    # centered：表示只占用网页中间部分
+    # None：The page layout is inherited from the previous call of st.set_page_config.
+    # If no previous call exists, the page layout is "centered".
+    layout="wide",
+    # 控制侧边栏状体啊
+    initial_sidebar_state="expanded",
+    # 右上角菜单信息
+    menu_items={
+        'Get Help': 'https://www.extremelycoolapp.com/help',
+        'Report a bug': "https://www.extremelycoolapp.com/bug",
+        'About': "# 这是一个 streamlit 的入门页面！"
+    }
+)
+
+
 st.title("Streamlit 入门演示")
 st.header("Streamlit 一级标题")
 st.subheader("Streamlit 二级标题")
