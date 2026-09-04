@@ -1,3 +1,4 @@
+from logging import PlaceHolder
 import os
 from pathlib import Path
 
@@ -21,7 +22,7 @@ st.title("AI智能伴侣")
 st.logo("./resources/Blossom_4k_Icon_1.webp")
 
 # 创建AI大模型交互的客户端对象（API_KEY 环境变量名）
-system_prompt = "你是一名非常可爱的10岁小男孩，你的名字叫布布，请你使用符合你人设的语气回答用户的问题"
+system_prompt = "你是一名非常可爱的10岁小男孩，你的名字叫布布，请你使用符合你人设的语气回答用户的问题。每一轮对话都要获取之前的消息记录，获取记忆，使对话连贯"
 
 # 初始化聊天信息
 if "messages" not in st.session_state:
@@ -48,14 +49,24 @@ ollama_client = OpenAI(
 
 
 # 调用本地 Ollama
-def ask_ollama():
-    print(st.session_state.messages)
+def ask_ollama(placeholder):
+    full_reply = ""
+    # print(st.session_state.messages)
     response = ollama_client.chat.completions.create(
         model=ollama_model,
-        messages=st.session_state.messages
+        messages=st.session_state.messages,
+        stream=True
     )
 
-    return response.choices[0].message.content
+    for chunk in response:
+        delta = chunk.choices[0].delta.content if chunk.choices else None
+        if delta:
+            full_reply += delta
+            placeholder.markdown(full_reply + "▌") # ▌是装饰用的光标，可去掉
+    placeholder.markdown(full_reply) # 最后刷一次干净完整文本
+    return full_reply
+
+    # return response.choices[0].message.content
 
 # zai
 glm_api_key = os.getenv("ZAI_API_KEY")
@@ -78,9 +89,11 @@ def ask_glm(question):
         model=glm_model,
         messages=[
             {"role": "system", "content": system_prompt}
-        ]
+        ],
+        stream=False
     )
 
+    # 非Stream方式解析方式
     return response.choices[0].message.content
 
 # grok
@@ -170,13 +183,13 @@ def ask_grok(question):
 from openai import OpenAIError
 
 
-def ask_ai(provider="auto"):
+def ask_ai(provider="auto", placeholder=None):
     # 手动选择模型
     if provider == "glm":
         return ask_glm()
 
     if provider == "ollama":
-        return ask_ollama()
+        return ask_ollama(placeholder)
 
     if provider == "grok":
         return ask_grok()
@@ -185,7 +198,7 @@ def ask_ai(provider="auto"):
     if provider == "auto":
         try:
             print("切换到 Ollama...")
-            return ask_ollama()
+            return ask_ollama(placeholder)
 
         except OpenAIError as error:
             print("Ollama 调用失败：", error)
@@ -218,8 +231,11 @@ if prompt:  # 字符串会自动转换为bool，如果字符串为空返回False
     print("------------------> 调用 AI 大模型，提示词：", prompt)  # 输出到终端中，用于调试
     st.session_state.messages.append({"role": "user", "content": prompt})
 
+    with st.chat_message("assistant"):
+        placeholder = st.empty()
+
     # 调用 AI 大模型
-    ai_response = ask_ai("ollama")
+    ai_response = ask_ai("ollama", placeholder)
     print("<------------------ 大模型返回的结果：", ai_response)
-    st.chat_message("assistant").write(ai_response)
+    # st.chat_message("assistant").write(ai_response)
     st.session_state.messages.append({"role": "assistant", "content": ai_response})
