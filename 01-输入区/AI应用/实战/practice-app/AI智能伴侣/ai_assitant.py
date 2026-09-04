@@ -5,6 +5,8 @@ import streamlit as st
 from dotenv import load_dotenv
 from openai import OpenAI
 
+load_dotenv(Path(__file__).with_name(".env"))
+
 st.set_page_config(
     page_title="AI智能伴侣",
     page_icon="🤖",
@@ -19,10 +21,43 @@ st.title("AI智能伴侣")
 st.logo("./resources/Blossom_4k_Icon_1.webp")
 
 # 创建AI大模型交互的客户端对象（API_KEY 环境变量名）
-system_prompt = "你是一名非常可爱的AI助理，你的名字叫布布，请你使用古灵精怪调皮可爱的10岁小男孩的语气回答用户的问题"
+system_prompt = "你是一名非常可爱的10岁小男孩，你的名字叫布布，请你使用符合你人设的语气回答用户的问题"
+
+# 初始化聊天信息
+if "messages" not in st.session_state:
+    st.session_state.messages = [
+        {"role": "system", "content": system_prompt}
+    ]
+
+# 展示聊天信息
+for message in st.session_state.messages:
+    if message["role"] == "user":
+        st.chat_message("user").write(message["content"])
+    elif message["role"] == "assistant":
+        st.chat_message("assistant").write(message["content"])
+
+# ollama
+ollama_base_url = os.getenv("OLLAMA_BASE_URL")
+ollama_model = os.getenv("OLLAMA_MODEL")
+ollama_api_key = os.getenv("OLLAMA_API_KEY")
+
+ollama_client = OpenAI(
+    api_key=ollama_api_key,
+    base_url=ollama_base_url
+)
+
+
+# 调用本地 Ollama
+def ask_ollama():
+    print(st.session_state.messages)
+    response = ollama_client.chat.completions.create(
+        model=ollama_model,
+        messages=st.session_state.messages
+    )
+
+    return response.choices[0].message.content
 
 # zai
-load_dotenv(Path(__file__).with_name(".env"))
 glm_api_key = os.getenv("ZAI_API_KEY")
 glm_base_url = os.getenv("ZAI_BASE_URL")
 glm_model = os.getenv("ZAI_MODEL")
@@ -42,31 +77,7 @@ def ask_glm(question):
     response = glm_client.chat.completions.create(
         model=glm_model,
         messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": question}
-        ]
-    )
-
-    return response.choices[0].message.content
-
-# ollama
-ollama_base_url = os.getenv("OLLAMA_BASE_URL")
-ollama_model = os.getenv("OLLAMA_MODEL")
-ollama_api_key = os.getenv("OLLAMA_API_KEY")
-
-ollama_client = OpenAI(
-    api_key=ollama_api_key,
-    base_url=ollama_base_url
-)
-
-
-# 调用本地 Ollama
-def ask_ollama(question):
-    response = ollama_client.chat.completions.create(
-        model=ollama_model,
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": question}
+            {"role": "system", "content": system_prompt}
         ]
     )
 
@@ -159,35 +170,35 @@ def ask_grok(question):
 from openai import OpenAIError
 
 
-def ask_ai(question, provider="auto"):
+def ask_ai(provider="auto"):
     # 手动选择模型
     if provider == "glm":
-        return ask_glm(question)
+        return ask_glm()
 
     if provider == "ollama":
-        return ask_ollama(question)
+        return ask_ollama()
 
     if provider == "grok":
-        return ask_grok(question)
+        return ask_grok()
 
     # 自动选择
     if provider == "auto":
         try:
             print("切换到 Ollama...")
-            return ask_ollama(question)
+            return ask_ollama()
 
         except OpenAIError as error:
             print("Ollama 调用失败：", error)
 
         try:
             print("正在使用 GLM...")
-            return ask_glm(question)
+            return ask_glm()
 
         except OpenAIError as error:
             print("GLM 调用失败：", error)
 
         print("切换到 Grok...")
-        return ask_grok(question)
+        return ask_grok()
 
     raise ValueError(f"不支持的 provider: {provider}")
 
@@ -205,8 +216,10 @@ prompt = st.chat_input("请输入你要问的问题")
 if prompt:  # 字符串会自动转换为bool，如果字符串为空返回False，非空返回True
     st.chat_message("user").write(prompt)
     print("------------------> 调用 AI 大模型，提示词：", prompt)  # 输出到终端中，用于调试
+    st.session_state.messages.append({"role": "user", "content": prompt})
 
     # 调用 AI 大模型
-    ai_response = ask_ai(prompt)
+    ai_response = ask_ai("ollama")
     print("<------------------ 大模型返回的结果：", ai_response)
     st.chat_message("assistant").write(ai_response)
+    st.session_state.messages.append({"role": "assistant", "content": ai_response})
